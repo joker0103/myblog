@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="none" />
+    <link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="web/backend/css/module.css" type="text/css" media="screen" />
+	<script src="web/backend/script/common.js" type="text/javascript"></script>
+	<script src="web/backend/script/md5.js" type="text/javascript"></script>
+	<title>www.myblog.com - 注册 - Powered by myblog</title>
+</head>
+<body>
+
+<!-- top bar -->
+<div id="top">
+	<div class="center">
+    <div class="menu-left">
+    <ul>
+     <li><a href="?p=backend&c=Login&a=login">返回首页</a></li>    
+    </ul>
+    </div>
+    <div class="menu-right">
+    <ul>
+     	<li></li> 
+    </ul>
+    </div>
+   </div>	
+</div>
+<script>
+	//判断当前界面在浏览器显示中是否属于window对象（框架是不属于window对象）
+	if(window.top != window){
+		//让当前窗口的父窗口（frame-》window）的对应的URL地址改变，变成当前窗口的跳转目标
+		window.parent.location.href = location.href;
+	}
+	
+</script>
+<div class="bg">
+<div id="wrapper">
+  <div class="logo"><a href="../" title="www.myblog.com"></a></div>
+  <div class="login">
+    <form method="post" action="?p=backend&c=User&a=add"><!--如果action没有数据，代表提交给当前请求的URL脚本：admin.php-->
+    <dl>
+      <dt></dt>
+      <dd class="username"><label for="edtUserName">用户名:</label><input type="text" id="edtUserName" name="edtUserName" size="20" value="" tabindex="1" /></dd>
+	  <dd class="password"><label for="edtNickname">昵&nbsp;&nbsp;称:</label><input type="text" id="edtNickname" name="edtNickname" size="20" tabindex="2" /></dd>
+      
+    </dl>
+	<dl>
+      <dt></dt>
+      <dd class="password"><label for="edtPassWord">密　码:</label><input type="password" id="edtPassWord" name="edtPassWord" size="20" tabindex="3" /></dd>
+	  <dd class="password"><label for="surePassWord">确认密码:</label><input type="password" id="surePassWord" name="surePassWord" size="20" tabindex="4" /></dd>
+    </dl>
+    <dl>
+      <dt></dt>
+       <dd class="username"><label for="edtEmail">邮　箱:</label><input type="text" id="edtEmail" name="edtEmail" size="50" value="" tabindex="5" /></dd>
+      <dd class="submit"><input id="btnPost" name="btnPost" type="submit" value="注册" class="button" tabindex="6"/></dd>
+    </dl>
+	<input type="hidden" name="username" id="username" value="" />
+	<input type="hidden" name="password" id="password" value="" />
+	<input type="hidden" name="nickname" id="nickname" value="" />
+	<input type="hidden" name="email" id="email" value="" />
+	<input type="hidden" name="repassword" id="surePassword" value="" />
+	<input type="hidden" name="action"  value="insert" />
+    </form>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+$("#btnPost").click(function(){
+
+	var strUserName=$("#edtUserName").val();
+	var strPassWord=$("#edtPassWord").val();
+	var strNickname=$("#edtNickname").val();
+	var strSurePassWord=$("#surePassWord").val();
+	var strEmail=$("#edtEmail").val()
+
+	//先验证验证码
+	if(strUserName==""){
+		alert("用户名不能为空！");
+		return false;
+	}
+
+	if((strPassWord=="")||(strSurePassWord =="")){
+		alert("密码和确认密码都不能为空！");
+		return false;
+	}
+
+	if((strPassWord != strSurePassWord)){
+		alert("两次输入的密码不一致！");
+		return false;
+	}
+
+	if(strEmail ==""){
+		alert("邮箱不能为空！");
+		return false;
+	}
+
+	$("#edtUserName").remove();
+	$("#edtPassWord").remove();
+	$("#edtEmail").remove();
+	$("#surePassWord").remove();
+	$("#edtNickname").remove();
+
+	strUserName=strUserName;
+	strNickname=strNickname;
+	strEmail=strEmail;
+	strPassWord=MD5(MD5(strPassWord));
+	strSurePassWord=MD5(MD5(strSurePassWord));
+	$("#username").val(strUserName);
+	$("#password").val(strPassWord);
+	$("#surePassword").val(strSurePassWord);
+	$("#nickname").val(strNickname);
+	$("#email").val(strEmail);
+})
+
+$(document).ready(function(){
+	if (!$.support.leadingWhitespace) {
+		alert("骚年,你还在用IE6,7,8内核的浏览器么?请升级至支持html5的IE9吧!\r\n要不咱换个Chrome,Firefox试试(—.—||||");
+	}
+});
+
+$("#chkRemember").click(function(){
+	$("#savedate").attr("value",$("#chkRemember").attr("checked")=="checked"?30:0);
+})
+</script>
+</body>
+</html>
+<!--82.403ms-->

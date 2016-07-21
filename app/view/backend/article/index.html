@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="TQBlog V2.0 Release 20140101" />
+<meta name="robots" content="none" />
+<title>www.tqblog.com - 文章管理 - Powered by TQBlog</title>
+<link href="web/backend/css/admin.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="web/backend/css/jquery.bettertip.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="web/backend/css/jquery-ui.custom.css"/>
+<script src="web/backend/script/common.js" type="text/javascript"></script>
+<script src="web/backend/script/admin_util.php" type="text/javascript"></script>
+<script src="web/backend/script/jquery.bettertip.pack.js" type="text/javascript"></script>
+<script src="web/backend/script/jquery-ui.custom.min.js" type="text/javascript"></script>
+</head>
+<body>
+<section class="main"><div id="divMain">
+<div class="divHeader">文章管理</div>
+<div class="SubMenu"></div>
+<div id="divMain2">
+<form class="search" id="search" method="post" action="?p=backend&c=Article&a=index">
+<p>搜索:&nbsp;&nbsp;分类 
+	<select class="edit" size="1" name="category" style="width:150px;" >
+		<option value="0">任意</option>
+		<?php foreach ($categories as $value) {?>
+		<option value="<?php echo $value->id ?>" <?php if ($category == $value->id ) {echo "selected=selected";}?> > <?php echo str_repeat("&nbsp;", $value->level * 4);echo $value->name?></option>
+		<?php }?>
+	</select>&nbsp;&nbsp;&nbsp;&nbsp;类型 
+	<select class="edit" size="1" name="status" style="width:80px;" >
+		<option value="0">任意</option>
+					<option value="1" <?php if ($status == 1 ) {echo 'selected=selected';}?>>草稿</option>
+					<option value="2" <?php if ($status == 2 ) {echo 'selected=selected';}?>>公开</option>
+					<option value="3" <?php if ($status == 3 ) {echo 'selected=selected';}?>>隐藏</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;
+	<label><input type="checkbox" name="istop" value="1" <?php if ($top == 1 ) {echo 'checked=checked';}?> />&nbsp;置顶</label>&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>标题&nbsp;&nbsp;<input name="search" style="width:250px;" type="text" value="<?php echo $search ?>" /> &nbsp;&nbsp;&nbsp;&nbsp;</label><input type="submit" class="button" value="提交"/></p>
+</form>
+	<table border="1" class="tableFull tableBorder tableBorder-thcenter">
+		<tr>
+			<th>ID</th>
+			<th>分类</th>
+			<th>作者</th>
+			<th>标题</th>
+			<th>日期</th>
+			<th>评论</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+		<?php foreach ($articles as $values) { ?>
+		<tr>
+			<td class="td5" align="center"><?php echo $values->id?></td>
+			<td class="td10" align="center"><?php echo $values->category_name?></td>
+			<td class="td10" align="center"><?php echo $values->user_name?></td>
+			<td><a href="" target="_blank"><img src="web/backend/image/admin/link.png" alt="" title="" width="16" /></a> <?php echo $values->title?></td>
+			<td class="td20" align="center"><?php echo date('Y-m-d H:i:s', $values->addtime) ?></td>
+			<td class="td5" align="center"><?php echo $values->count?></td>
+			<td class="td5" align="center"><?php echo $values->status?></td>
+			<td class="td10 tdCenter" align="center"><a href="?p=backend&c=Article&a=update&id=<?php echo $values->id ?>"><img src="web/backend/image/admin/page_edit.png" alt="编辑" title="编辑" width="16" /></a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="return window.confirm('单击“确定”继续。单击“取消”停止。');" href="?p=backend&c=Article&a=delete&id=<?php echo $values->id ?>"><img src="web/backend/image/admin/delete.png" alt="删除" title="删除" width="16" /></a></td>
+		</tr>
+		<?php } ?>
+		</table><hr/>
+	<p class="pagebar" style="display:inline">
+		<?php echo $pagerHtml ?>
+		<!-- <form method="GET" action="admin.php" style="display:inline">
+			<input type="hidden" name="module" value="Article"/>
+			<input type="hidden" name="action" value="index"/>
+			<input type='hidden' name='category' value='0'/><input type='hidden' name='status' value='0'/><input type='hidden' name='istop' value='0'/><input type='hidden' name='search' value=''/>
+			<input type="text" id="page" name="page" value="1" onFocus="input_focus(this)" onBlur="input_blur(this)"/>
+			<input type="submit" value="提交"/>
+		</form> -->
+		<script>
+			function input_focus(e){
+				if(e.value == e.defaultValue) e.value = '';
+			}
+
+			function input_blur(e){
+				if(e.value == '') e.value = e.defaultValue;
+			}
+		</script>
+	</p>
+</div>
+<script type="text/javascript">ActiveLeftMenu("aArticleAdmin");</script><script type="text/javascript">AddHeaderIcon("image/article_32.png");</script>
+</div>
+</section>
+</body>
+</html><!--59.664ms-->

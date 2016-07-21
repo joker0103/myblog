@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex,nofollow"/>
+	<meta name="generator" content="myblog V1.0 Release 20151116" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+	<meta http-equiv="Refresh" content="<?php echo $time ?>;url=<?php echo $url ?>">
+	<title>www.myblog.com - 提示信息 - Powered by PHP150912</title>
+    <link rel="shortcut icon" href="web/frontend/image/admin/favicon.ico" />
+	<link rel="stylesheet" href="web/frontend/css/module.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="web/frontend/script/common.js"></script>
+</head>
+<body class="short">
+
+<!-- top bar -->
+<div id="top">
+	<div class="center">
+    <div class="menu-left">
+    <ul>
+     <li><a href="index.php">返回首页</a></li>    
+    </ul>
+    </div>
+    <div class="menu-right">
+    <ul>
+     	<li></li> 
+    </ul>
+    </div>
+   </div>	
+</div>
+
+<div class="bg">
+<div id="wrapper">
+  <div class="logo"><a href="" title="www.myblog.com"></a></div>
+  <div class="login loginw">
+	<form id="frmLogin" method="post" action="#">
+	  <div class="divHeader">提示信息！</div>
+  	  <div class="content">
+	 	<div><p>提示信息</p><div>
+		</div><font color="red" style="font-size: 16px"><?php echo $message ?>正在为您跳转......</font></div>
+	 	</div>
+	  <p><a href="javascript:history.back(-1)">返回</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:location.reload()">刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo $url ?>">立即跳转</a></p>
+    </form>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+</script>
+</body>
+</html>

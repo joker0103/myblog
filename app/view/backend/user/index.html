@@ -1,0 +1,37 @@
+
+<link href="./web/backend/css/admin.css" rel="stylesheet" type="text/css" />
+
+<section class="main"><div id="divMain">
+<div class="divHeader">管理中心</div><div class="SubMenu"></div><div id="divMain2">
+	<table border="1" class="tableFull tableBorder tableBorder-thcenter">
+		<tr>
+			<th>序号</th>
+			<th>用户名</th>
+			<th>昵称</th>
+			<th>邮箱</th>
+			<th>上次登录时间</th>
+			<th>上次登录IP</th>
+			<th>权限</th>
+			<th>操作</th>
+		</tr>
+		<?php foreach($users as $value) { ?>
+		<tr>
+			<td align="center"><?php echo $value->id ?></td>
+			<td align="center"><?php echo $value->name ?></td>
+			<td align="center"><?php echo $value->nickname ?></td>
+			<td align="center"><?php echo $value->email ?></td>
+			<td align="center"><?php echo date("Y年m月d日", $value->lastlogintime) ?></td>
+			<td align="center"><?php echo $value->lastloginip ?></td>
+			<td align="center"><?php echo $value->power ?></td>
+			<td align="center">
+			<?php if ($power == 1) {?>
+				<a href="?p=backend&c=User&a=delete&id=<?php echo $value->id ?>" onclick="return confirm('你确定要删除吗？')" target="mainFrame">删除 |</a>
+			<?php } ?>
+				<a href="?p=backend&c=User&a=update&id=<?php echo $value->id ?>" target="mainFrame"> 修改</a>
+			</td>
+		</tr>
+		<?php } ?>
+			</table>
+</div>
+<script type="text/javascript">ActiveTopMenu("topmenu1");</script><script type="text/javascript">AddHeaderIcon("web/backend/image/home_32.png");</script></div>
+</section>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<title>www.myblog.com - Welcome to 我的博客 - Powered by PHP150912</title>
+	<link rel="shortcut icon" href="web/image/favicon.ico" />
+	<link rel="stylesheet" rev="stylesheet" href="web/frontend/style/default.css" type="text/css" media="all"/>
+	<script src="web/frontend/script/common.js" type="text/javascript"></script>
+	<script src="" type="text/javascript"></script>
+	<style type="text/css">
+		.page a{
+			border: 1px solid #f0fef0;
+			padding: 3px 10px 3px 10px;
+			background: #F3EFEF;
+	}
+	</style>
+	<link rel="alternate" type="application/rss+xml" href="" title="www.myblog.com" />
+	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="" />
+	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="xmlrpc/wlwmanifest.xml" /> 
+
+</head>
+<body class="multi index">
+
+<!-- top bar -->
+<div id="top">
+	<div class="center">
+    <div class="menu-left">
+    <ul>
+     <li><a href="javascript:;" onclick="setHomepage('http://www.myblog.com');">设为首页</a></li>
+     <li><a href="javascript:;" onclick="addFavorite('http://www.myblog.com','www.myblog.com - Welcome to 我的博客')">收藏本站</a></li>      
+    </ul>
+    </div>
+    <div class="menu-right">
+	    <ul id="info">
+		<{if isset($smarty.session.user) }>
+        	<li>欢迎 <{$smarty.session.user.username}>(<{$smarty.session.user.powerName}>)！</li>
+        	<li><a href="?p=backend&c=Frame&a=frame" target="_self">管理</a></li>
+        	<li><a href="?p=backend&c=Login&a=logOut">退出</a></li>
+       	<{else}>
+			<li>欢迎游客！</li>
+        	<li><a href="?p=backend&c=Login&a=login">登录 | </a></li>
+        	<li><a href="?p=backend&c=User&a=add">注册</a></li>
+        <{/if}>
+    </ul>
+	    </div>
+   </div>	
+</div>
+  
+<div id="divAll">
+	<div id="divPage">
+	<div id="divMiddle">
+		<div id="divTop">
+			<h1 id="BlogTitle"><a href="http://www.myblog.com">www.myblog.com</a></h1>
+			<h3 id="BlogSubTitle">Welcome to 我的博客</h3>
+		</div>
+		<div id="divNavBar">
+			<ul>
+				<li id="nvabar-item-index"><a href="">首页</a></li><li id="navbar-page-2"><a href="">留言本</a></li>			</ul>
+		</div>
+
+		<div id="divMain">
+<{foreach from=$articles key='key' item='article'}>
+<div class="post multi">
+	<h4 class="post-date"><{$article->addtime|date_format:"%Y-%m-%d %H:%M:%S"}></h4>
+	<h2 class="post-title"><a href="?p=frontend&c=Comment&a=index&id=<{$article->id}>" target="_blank"><{$article->title}></a></h2>
+	<div class="post-body">
+		<{if !empty($article->firstImgUrl)}>
+			<{$article->firstImgUrl}>
+		<{/if}>
+		<{$article->content|strip_tags|truncate:200:'...':true}>
+	</div>
+	<h5 class="post-tags"></h5>
+	<h6 class="post-footer">
+		作者: <{$article->user_name}>| 分类:<{$article->category_name}> | 阅读:<{$article->read_count}> | 赞:<{$article->good_count}> | 评论:<{$article->count}>
+	</h6>
+</div>
+<{/foreach}>
+<div class="pagebar" > 	
+	<span class="page" style="border: 0px solid red;font-weight: normal;"><{$pagerHtml}></span>
+  </div>
+		</div>
+<div id="divSidebar">
+ 
+<dl class="function" id="divSearchPanel">
+<dt class="function_t">文章标题搜索</dt><dd class="function_c">
+
+<div>
+	<form name="search" method="post" action="?p=frontend&c=Article&a=index">
+		<input type="text" name="search" size="11" value="<{$search}>"/> 
+		<input type="hidden" name='categoryId' value="<{$categoryId}>"></input>
+		<input type="submit" value="搜索" />
+	</form>
+</div>
+
+
+</dd>
+</dl> 
+<dl class="function" id="divCalendar">
+<dt style="display:none;"></dt><dd class="function_c">
+
+<div></div>
+
+
+</dd>
+</dl> 
+<dl class="function" id="divCatalog">
+<dt class="function_t">文章分类</dt><dd class="function_c">
+<ul>
+	<li >
+		<a href="?p=frontend&c=Article&a=index&categoryId=0" target="_self">
+			所有分类
+		</a>
+	</li>
+<{foreach from = $categories item='category'}>
+	<li >
+		<a href="?p=frontend&c=Article&a=index&categoryId=<{$category->id}>" target="_self">
+			<{str_repeat('&nbsp;', $category->level * 8)}><{$category->name}>
+		</a>
+	</li>
+<{/foreach}>
+</ul>
+<dl class="function" id="divFavorites">
+<dt class="function_t">网站收藏</dt><dd class="function_c">
+<ul><li><a href="" target="_blank">myblog社区</a></li><li><a href="" target="_blank">myblog应用中心</a></li></ul>
+</dd>
+</dl> 
+<dl class="function" id="divLinkage">
+<dt class="function_t">友情链接</dt><dd class="function_c">
+<ul><li><a href="" target="_blank" title="myblog开源博客系统">myblog官网</a></li></ul>
+
+</dd>
+</dl> 
+<dl class="function" id="divMisc">
+<dt style="display:none;"></dt><dd class="function_c">
+
+
+<ul><li><a href="" target="_blank"><img src="web/frontend/image/logo/myblog.gif" height="31" width="88" alt="myblog" /></a></li><li><a href="" target="_blank"><img src="web/frontend/image/logo/rss.png" height="31" width="88" alt="订阅本站的 RSS 2.0 新闻聚合" /></a></li></ul>
+
+</dd>
+</dl>		</div>
+		<div id="divBottom">
+        	<h3 id="BlogCopyRight">
+                                            	Copyright © 2008-2028 PHP150912 All Rights Reserved            </h3>
+			<h4 id="BlogPowerBy">Powered by <a href="" title="myblog" target="_blank">myblog V1.0 Release 20151116</a></h4>
+		</div><div class="clear"></div>
+	</div><div class="clear"></div>
+	</div><div class="clear"></div>
+</div>
+</body>
+</html>
